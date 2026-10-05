@@ -1,0 +1,203 @@
+/* Mobile-first: base styles target small screens; media queries scale up. */
+
+:root {
+  --bg: #fafaf9;
+  --surface: #fff;
+  --text: #111;
+  --muted: #555;
+  --border: #d4d4d8;
+  --border-soft: #e7e7ea;
+  --accent-bg: #d6e4fb;
+  --accent-border: #a9c4f0;
+  --accent-text: #1e4fa3;
+  --check: #2b5a17;
+  --danger: #c00;
+  --radius: 10px;
+
+  /* Sizes that change with screen width */
+  --font-base: 16px;
+  --font-control: 18px;
+  --font-item: 20px;
+  --font-title: 28px;
+  --control-height: 48px;
+  --control-padding: 16px;
+  --item-height: 60px;
+  --app-padding: 32px;
+  --app-gap: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--font-base);
+}
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+  padding: 0 var(--control-padding);
+  height: var(--control-height);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: var(--font-control);
+}
+button.selected {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--accent-text);
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+/* Layout */
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--app-padding) 16px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-gap);
+}
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.header h1 {
+  margin: 0;
+  font-size: var(--font-title);
+  font-weight: 600;
+}
+.segmented,
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Add form */
+.add {
+  display: flex;
+  gap: 16px;
+}
+.add input {
+  flex: 1;
+  min-width: 0;
+  height: var(--control-height);
+  padding: 0 var(--control-padding);
+  font-size: var(--font-control);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.add input::placeholder {
+  color: #777;
+}
+.add input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+.add button {
+  background: #000;
+  border-color: #000;
+  color: #fff;
+}
+.error {
+  color: var(--danger);
+  margin: 0;
+}
+
+/* Todo list */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 0 var(--control-padding);
+  min-height: var(--item-height);
+}
+.list label {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex: 1;
+  font-size: var(--font-item);
+  cursor: pointer;
+}
+.list input[type="checkbox"] {
+  appearance: none;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  border: 2px solid #999;
+  border-radius: 6px;
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.list input[type="checkbox"]:checked {
+  background: var(--check);
+  border-color: var(--check);
+}
+.list input[type="checkbox"]:checked::after {
+  content: "";
+  width: 7px;
+  height: 13px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: translateY(-2px) rotate(45deg);
+}
+.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+.list .delete {
+  border: none;
+  background: none;
+  height: auto;
+  padding: 6px;
+  display: grid;
+  place-items: center;
+  color: #333;
+}
+.list .delete:hover {
+  color: var(--danger);
+}
+
+footer {
+  color: var(--muted);
+  font-size: var(--font-item);
+}
+
+/* Wide screens: two-column list */
+@media (min-width: 700px) {
+  .list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
